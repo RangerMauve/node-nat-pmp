@@ -198,6 +198,10 @@ Client.prototype.portUnmapping = function (opts, cb) {
 Client.prototype._next = function () {
   debug('Client#_next()');
   var req = this._queue[0];
+  if (!this.socket) {
+    debug('_next: client is closed');
+    return;
+  }
   if (!req) {
     debug('_next: nothing to process');
     return;
